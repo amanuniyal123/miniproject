@@ -1,3 +1,18 @@
+
+int main()
+{     char a[20],b[10],pname[50];
+ int d[60],size;
+	 FILE *fp1 = fopen("sym.txt", "w");
+      FILE *fp2 = fopen("int.txt", "w");
+    FILE *f = fopen("input4.txt", "r");
+     pass1( a,b,d,pname,fp1,fp2,f,&size);
+      fp1 = fopen("sym.txt", "r");
+       f = fopen("int.txt", "r");
+     fp2 = fopen("object.txt", "w");
+     pass2( a,b,d,fp1,fp2,f);
+     objprog(pname,d,size);   
+	 	
+}
 void pass2( char a[50],char b[10],int d[60],FILE *fp1,FILE *fp2,FILE *f)
  {
  	  char c,temp2[10],temp1[10],reg[10],A;

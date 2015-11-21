@@ -335,3 +335,240 @@ void pass2( char a[50],char b[10],int d[60],FILE *fp1,FILE *fp2,FILE *f)
        fclose(fp2);
 }
 
+void objprog( char pname[50],int d[60],int size)
+   {
+    FILE  *f = fopen("object.txt", "r");
+    FILE *fp2 = fopen("objectprog.txt", "w");
+   	int j=0,l,re,n=0,addr,i=0,resw=0,t1=0,counter=0,r,length,byte;
+   	char a[50];
+   	fprintf(fp2,"%s","HEADER");
+   	fprintf(fp2,"%c",'^');
+   	fprintf(fp2,"%s",pname);
+   	l=strlen(pname);
+   	re=10-l;
+   	while(n<re)
+   	{
+   		fprintf(fp2,"%c",' ');
+   		fprintf(fp2,"%c",'_');
+   		n++;
+   		
+	}
+	n=0;
+	fprintf(fp2,"%c",'^');
+    fprintf(fp2,"%04d",d[i]);
+   	fprintf(fp2,"%c",'^');
+    fprintf(fp2,"%04x",size);
+    fprintf(fp2,"%c",'\n');
+    fscanf(f,"%s",a);
+    fscanf(f,"%s",a);
+    fscanf(f,"%s",a);
+    fprintf(fp2,"%s","TEXT");
+    fprintf(fp2,"%c",'^');
+    fprintf(fp2,"%04x",d[i]);
+    fprintf(fp2,"%c",'^');
+	int count=0,round=0;
+	char c,b[50];
+    while(fscanf(f,"%s",a)!=EOF)
+    {
+         count=0;
+         round=0;
+          FILE *fp = fopen("optab1.txt", "r");
+    	while(fscanf(fp,"%s",b)!=EOF)
+    	{
+    		if(strcmp(a,b)==0)
+    		{  
+    		    
+    		     count++;
+    		      if(strcmp(a,"RSUB")==0||strcmp(a,"TIO")==0)
+    		      {
+    		      	
+    		      }
+    		      else
+    		      {
+    			     fscanf(f,"%s",a);
+    			    fscanf(f,"%s",a);
+    		
+    	          }
+				counter=counter+4;
+				if(counter<=20)
+				{
+					fscanf(f,"%s",a);
+					if(resw==1)
+				  {
+					fprintf(fp2,"%s",a);
+					fprintf(fp2,"%c",'^');
+					resw=0;
+			      }
+					fscanf(f,"%s",a);
+					fprintf(fp2,"%s",a);
+					printf("\n");
+					printf("%s",a);
+					fprintf(fp2,"%c",'^');
+
+				}
+				else
+				{   
+				     counter=counter-4;
+				     fprintf(fp2,"%c",'S');
+				     fprintf(fp2,"%x",counter);
+				     counter=0;
+					 fprintf(fp2,"%c",'\n');
+				     fprintf(fp2,"%s","TEXT");
+				     fprintf(fp2,"%c",'^');
+    				 fscanf(f,"%x",&addr);
+                     fprintf(fp2,"%04x",addr);
+                     fprintf(fp2,"%c",'^');
+                     fscanf(f,"%s",a);
+					 fprintf(fp2,"%s",a);
+					  counter=counter+4;
+					 fprintf(fp2,"%c",'^');	
+
+
+				
+				}
+				
+    			break;
+    			
+         	}
+        }
+              fclose(fp);
+      if(count==0)
+       {
+           
+		   if(strcmp(a,"BYTE")==0)
+           { 	
+                 
+           	    fscanf(f,"%c",&c);
+    			fscanf(f,"%c",&c);   	
+    			fscanf(f,"%s",a);
+    			if(c=='X')
+    			{
+    				length=strlen(a);
+    				length=length/2;
+    				counter=counter+length;
+    				
+    			}
+    			else if(c=='C')
+    			{
+    				  
+    				length=strlen(a);
+    				counter=counter+length;
+    			}
+    			
+    			if(counter<=20)
+				{
+					  
+					fscanf(f,"%s",a);
+					if(resw==1)
+				 {
+					fprintf(fp2,"%s",a);
+					fprintf(fp2,"%c",'^');
+					resw=0;
+				 }
+					fscanf(f,"%s",a);
+					fprintf(fp2,"%s",a);
+					printf("%s",a);
+					fprintf(fp2,"%c",'^');
+
+				}
+				else
+				{
+					counter=counter-length;
+					fprintf(fp2,"%c",'S');
+				    fprintf(fp2,"%x",counter);
+				    counter=0;
+					fprintf(fp2,"%c",'\n');
+				    fprintf(fp2,"%s","TEXT");
+    				fscanf(f,"%x",&addr);
+    				fprintf(fp2,"%c",'^');
+                    fprintf(fp2,"%04x",addr);
+                    fprintf(fp2,"%c",'^');
+					fscanf(f,"%s",a);
+					fprintf(fp2,"%s",a);
+					 counter=counter+length;
+					fprintf(fp2,"%c",'^');	
+
+
+					
+				}
+	
+
+    			
+    			
+           	
+           } 
+           
+           
+            else if(strcmp(a,"WORD")==0)
+    		{
+    			count++;
+    		    fscanf(f,"%d",&byte);
+    			counter=counter+3;
+    			if(counter<=20)
+				{
+					fscanf(f,"%s",a);
+					if(resw==1)
+				   {
+					fprintf(fp2,"%s",a);
+							fprintf(fp2,"%c",'^');
+					resw=0;
+				   }
+					fscanf(f,"%s",a);
+					fprintf(fp2,"%s",a);
+					fprintf(fp2,"%c",'^');
+
+				}
+				else
+				{
+					counter=counter-3;
+					fprintf(fp2,"%c",'S');
+				    fprintf(fp2,"%x",counter);
+				    counter=0;
+					fprintf(fp2,"%c",'\n');
+				    fprintf(fp2,"%s","TEXT");
+    				fscanf(f,"%x",&addr);
+    				 fprintf(fp2,"%c",'^');
+    				 n=addr;
+    				 fprintf(fp2,"%04x",addr);
+                     fprintf(fp2,"%c",'^');
+					 fscanf(f,"%s",a);
+					 fprintf(fp2,"%s",a);
+					 counter=counter+3;
+					 fprintf(fp2,"%s",'^');	
+
+
+					
+				}
+            }
+    		else if(strcmp(a,"RESW")==0||strcmp(a,"RESB")==0)
+    		{    
+    		    
+    			fscanf(f,"%s",a);
+    			fscanf(f,"%s",a);
+    			if(resw==0)
+    			{
+    			fprintf(fp2,"%c",'S');
+				fprintf(fp2,"%x",counter);
+				counter=0;
+				fprintf(fp2,"%c",'\n');
+				fprintf(fp2,"%s","TEXT");
+				fprintf(fp2,"%c",'^');
+				resw++;
+                }
+            }
+	   }
+	     	
+    }
+    fclose(f);
+     i=0;
+     j=0;
+      fprintf(fp2,"%c",'s');
+       fprintf(fp2,"%x",counter);
+    fprintf(fp2,"%c",'\n');
+    fprintf(fp2,"%s","END");
+	fprintf(fp2,"%c",'^');
+    fprintf(fp2,"%04x",d[i]);
+    fclose(fp2);
+   }
+
+

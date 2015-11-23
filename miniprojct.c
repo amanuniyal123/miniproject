@@ -1,4 +1,11 @@
-
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<conio.h>
+void pass1(char[],char[],int[],char[],FILE *,FILE *,FILE *,int *);
+void pass2(char[],char [],int [],FILE *,FILE *,FILE *);
+void objprog(char[],int [],int);
+int hexvalue( int,int,int,int,int);
 int main()
 {     char a[20],b[10],pname[50];
  int d[60],size;
